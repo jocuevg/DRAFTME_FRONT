@@ -1,7 +1,7 @@
 import { parseJsonResponse } from '@/helpers/parseJsonResponse';
 import axios from 'axios'
 const instance = axios.create({
-  baseURL: 'https://localhost:7024/api/',
+  baseURL: 'https://localhost:7192/api/',
   headers: {
     'Content-Type': 'application/json',
     'Access-Control-Allow-Origin': '*'
