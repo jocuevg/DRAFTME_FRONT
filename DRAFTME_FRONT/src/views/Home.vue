@@ -1,34 +1,9 @@
-<script setup lang="ts">
-</script>
+<script setup lang="ts"></script>
 
 <template>
   <v-app>
     <!-- HEADER -->
-    <v-app-bar scroll-behavior="elevate" color="white">
-      <v-container class="d-flex align-center justify-space-between">
-        <!-- Logo -->
-        <div class="d-flex align-center gap-2 mr-10">
-          <v-img src="/LogoTexto.png" width="100" onclick="" style="cursor: pointer" />
-        </div>
-
-        <!-- Navegación -->
-        <v-row class="d-none d-md-flex" dense>
-          <v-btn variant="text" class="text-body-1 text-uppercase">Categorías</v-btn>
-          <v-btn variant="text" class="text-body-1 text-uppercase">Equipos</v-btn>
-          <v-btn variant="text" class="text-body-1 text-uppercase">Jugadores</v-btn>
-        </v-row>
-
-        <!-- Acciones -->
-        <div class="d-flex align-center gap-3">
-          <v-btn icon class="mr-5">
-            <v-icon color="rgb(195,0,0)">mdi-heart-outline</v-icon>
-            <v-tooltip activator="parent" location="left">Favoritos</v-tooltip>
-          </v-btn>
-          <v-btn color="rgb(195,0,0)" variant="flat">Iniciar sesión</v-btn>
-          <v-btn color="rgb(195,0,0)" variant="text">Registrarse</v-btn>
-        </div>
-      </v-container>
-    </v-app-bar>
+    <Header></Header>
 
     <!-- HERO -->
     <div class="hero-section">
@@ -121,45 +96,7 @@
     </v-container>
 
     <!-- FOOTER -->
-    <v-footer color="rgb(255,255,255)">
-      <v-container>
-        <v-row class="text-left">
-          <!-- Sección 1: Logo y descripción -->
-          <v-col cols="12" md="4">
-            <v-img src="/LogoTexto.png" width="120" class="mb-4" />
-            <p class="text-body-2">
-              Conecta jugadores con equipos de todas las categorías. Nuestra misión es facilitar el
-              fichaje en el mundo del fútbol amateur y profesional.
-            </p>
-          </v-col>
-
-          <!-- Sección 2: Enlaces -->
-          <v-col cols="12" md="4">
-            <h3 class="text-subtitle-1 font-weight-bold mb-2">Navegación</h3>
-            <v-list density="compact" nav>
-              <v-list-item link title="Categorías" />
-              <v-list-item link title="Equipos" />
-              <v-list-item link title="Jugadores" />
-              <v-list-item link title="Iniciar sesión" />
-              <v-list-item link title="Registrarse" />
-            </v-list>
-          </v-col>
-
-          <!-- Sección 3: Contacto o redes -->
-          <v-col cols="12" md="4">
-            <h3 class="text-subtitle-1 font-weight-bold mb-2">Síguenos</h3>
-            <div class="d-flex align-center">
-              <v-btn icon :href="'#'" variant="text"><v-icon>mdi-linkedin</v-icon></v-btn>
-              <v-btn icon :href="'#'" variant="text"><v-icon>mdi-instagram</v-icon></v-btn>
-              <v-btn icon :href="'#'" variant="text"><v-icon>mdi-email</v-icon></v-btn>
-            </div>
-            <p class="mt-4 text-body-2">
-              © {{ new Date().getFullYear() }} DRAFT ME. Todos los derechos reservados.
-            </p>
-          </v-col>
-        </v-row>
-      </v-container>
-    </v-footer>
+    <Footer></Footer>
   </v-app>
 </template>
 
@@ -173,18 +110,5 @@
   display: flex;
   align-items: center;
   justify-content: center;
-}
-
-.v-tooltip > ::v-deep(.v-overlay__content) {
-  background: rgb(255, 214, 214);
-  color: rgb(195, 0, 0);
-}
-
-.v-list .v-list-item--nav:not(:only-child) {
-     margin-bottom: 0px; 
-}
-
-.v-list-item--density-compact.v-list-item--one-line {
-    min-height: 33px; 
 }
 </style>
