@@ -13,7 +13,7 @@ function goHome() {
     <v-container class="d-flex align-center justify-space-between">
       <!-- Logo -->
       <div class="d-flex align-center gap-2 mr-10">
-        <v-img src="/LogoTexto.png" width="100" @click="goHome" style="cursor: pointer" />
+        <v-img src="@/images/LogoTexto.png" width="100" @click="goHome" style="cursor: pointer" />
       </div>
 
       <!-- Navegación -->

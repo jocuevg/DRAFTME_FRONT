@@ -4,7 +4,7 @@
       <v-row class="text-left">
         <!-- Sección 1: Logo y descripción -->
         <v-col cols="12" md="4">
-          <v-img src="/LogoTexto.png" width="120" class="mb-4" />
+          <v-img src="@/images/LogoTexto.png" width="120" class="mb-4" />
           <p class="text-body-2">
             Conecta jugadores con equipos de todas las categorías. Nuestra misión es facilitar el
             fichaje en el mundo del fútbol amateur y profesional.

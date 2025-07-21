@@ -54,7 +54,7 @@
         <!-- Card 1 -->
         <v-col cols="12" md="4">
           <v-card hover class="h-100 pt-2 d-flex flex-column">
-            <v-img src="/jugadores.png" height="160" />
+            <v-img src="@/images/jugadores.png" height="160" />
             <v-card-title class="font-weight-bold">Buscar jugadores</v-card-title>
             <v-card-text class="flex-grow-1"
               >Encuentra futbolistas disponibles de todos los niveles.</v-card-text
@@ -68,7 +68,7 @@
         <!-- Card 2 -->
         <v-col cols="12" md="4">
           <v-card hover class="h-100 pt-2 d-flex flex-column">
-            <v-img src="/equipos.png" height="160" />
+            <v-img src="@/images/equipos.png" height="160" />
             <v-card-title class="font-weight-bold">Ver equipos</v-card-title>
             <v-card-text class="flex-grow-1"
               >Descubre clubes activos en búsqueda de fichajes.</v-card-text
@@ -82,7 +82,7 @@
         <!-- Card 3 -->
         <v-col cols="12" md="4">
           <v-card hover class="h-100 pt-2 d-flex flex-column">
-            <v-img src="/categorias.png" height="160" />
+            <v-img src="@/images/categorias.png" height="160" />
             <v-card-title class="font-weight-bold">Explorar categorías</v-card-title>
             <v-card-text class="flex-grow-1"
               >Investiga oportunidades en distintas divisiones de fútbol.</v-card-text
@@ -102,7 +102,7 @@
 
 <style scoped>
 .hero-section {
-  background-image: url('/banner.jpg');
+  background-image: url('@/images/banner.jpg');
   background-size: cover;
   background-position: center;
   height: 500px;
