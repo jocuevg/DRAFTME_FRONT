@@ -1,4 +1,68 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { gruposPorCategoria } from '@/helpers/gruposPorCategoria'
+import { posicionesFutbol } from '@/helpers/posicionesFutbol'
+import type { TeamSum } from '@/models/Team'
+import { useCategoriaStore } from '@/stores/Categorias'
+import { storeToRefs } from 'pinia'
+
+const { loadCategorias, getCategoriaById } = useCategoria()
+const CategoriaStore = useCategoriaStore()
+const { categorias } = storeToRefs(CategoriaStore)
+
+onBeforeMount(async () => {
+  loadCategorias(true)
+})
+
+const listCategorias = computed(() => {
+  const aux: string[] = []
+  categorias.value.forEach((item) => {
+    if (!aux.includes(item.nombre)) aux.push(item.nombre)
+  })
+  return aux
+})
+
+const currectCategoria = ref<string>()
+const currectPosicion = ref<string>()
+const currectGrupo = ref<number>()
+const currectTeam = ref<string>()
+const conGrupo = computed(() => {
+  return currectCategoria.value ? currectCategoria.value.includes('RFEF') : false
+})
+
+watch(currectCategoria, async () => {
+  currectGrupo.value = undefined
+  currectTeam.value = undefined
+  await loadTeams()
+})
+
+watch(currectGrupo, async () => {
+  currectTeam.value = undefined
+  await loadTeams()
+})
+
+const listGrupos = computed(() => {
+  if (!conGrupo.value) return []
+  const tipo = currectCategoria.value!.split(' ')[0]
+  return gruposPorCategoria[tipo] || []
+})
+
+const listEquipos = ref<TeamSum[]>([])
+async function loadTeams() {
+  let id
+  if (!conGrupo.value) {
+    id = categorias.value.find((item) => item.nombre == currectCategoria.value)?.id
+  } else {
+    id = categorias.value.find(
+      (item) => item.nombre == currectCategoria.value && item.grupo == currectGrupo.value
+    )?.id
+  }
+  if (id) {
+    listEquipos.value = (await getCategoriaById(id, false)).equipos!
+  } else {
+    listEquipos.value = []
+  }
+}
+</script>
 
 <template>
   <v-app>
@@ -23,17 +87,46 @@
         <p class="ma-6">Busca por nombre, categoria, equipo o posición</p>
 
         <v-row justify="center" dense style="width: 95%">
-          <v-col cols="12" md="3">
+          <v-col cols="12" :md="conGrupo ? 2 : 3">
             <v-text-field label="Nombre" hide-details />
           </v-col>
           <v-col cols="12" md="2">
-            <v-select label="Categoría" hide-details />
+            <v-select
+              v-model="currectCategoria"
+              label="Categoría"
+              clearable
+              hide-details
+              :items="listCategorias"
+              item-title="nombre"
+            />
           </v-col>
-          <v-col cols="12" md="3">
-            <v-select label="Equipo" hide-details />
+          <v-col v-if="conGrupo" cols="12" md="2">
+            <v-select
+              v-model="currectGrupo"
+              clearable
+              label="Grupo"
+              hide-details
+              :items="listGrupos"
+            />
           </v-col>
-          <v-col cols="12" md="3">
-            <v-select label="Posición" hide-details />
+          <v-col cols="12" :md="conGrupo ? 2 : 3">
+            <v-select
+              :disabled="conGrupo ? !(currectCategoria && currectGrupo) : !currectCategoria"
+              v-model="currectTeam"
+              label="Equipo"
+              hide-details
+              :items="listEquipos"
+              item-title="nombre"
+            />
+          </v-col>
+          <v-col cols="12" :md="conGrupo ? 2 : 3">
+            <v-select
+              label="Posición"
+              hide-details
+              :items="posicionesFutbol"
+              clearable
+              v-model="currectPosicion"
+            />
           </v-col>
           <v-col cols="12" md="1">
             <v-btn

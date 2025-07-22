@@ -1,0 +1,21 @@
+export const posicionesFutbol: string[] = [
+  "Portero",
+  "Defensa Central",
+  "Lateral Derecho",
+  "Lateral Izquierdo",
+  "Líbero",
+  "Carrilero Derecho",
+  "Carrilero Izquierdo",
+  "Mediocampista Defensivo",
+  "Mediocampista Central",
+  "Mediocampista Ofensivo",
+  "Interior Derecho",
+  "Interior Izquierdo",
+  "Extremo Derecho",
+  "Extremo Izquierdo",
+  "Delantero Centro",
+  "Segundo Delantero",
+  "Delantero por Derecha",
+  "Delantero por Izquierda",
+  "Falso 9"
+];
