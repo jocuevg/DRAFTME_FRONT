@@ -6,6 +6,8 @@ import { VDateInput } from 'vuetify/labs/VDateInput'
 import { es } from 'vuetify/locale'
 import * as directives from 'vuetify/directives'
 import { components } from 'vuetify/dist/vuetify-labs.js'
+import * as labsComponents from 'vuetify/labs/components'
+
 
 export default createVuetify({
   locale: {
@@ -26,6 +28,6 @@ export default createVuetify({
   directives,
   components: {
     ...components,
-    VDateInput,
+    ...labsComponents,
   },
 })

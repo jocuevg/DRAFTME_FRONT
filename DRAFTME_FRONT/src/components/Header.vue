@@ -1,11 +1,24 @@
 <script setup lang="ts">
 import router from '@/router'
+import Singin from './Singin.vue';
 
 function goHome() {
   router.push({
     name: 'home'
   })
 }
+
+const loginDialog = useTemplateRef('loginDialog')
+const singinDialog = useTemplateRef('singinDialog')
+
+function login() {
+  loginDialog.value?.showDialog()
+}
+
+function singin() {
+  singinDialog.value?.showDialog()
+}
+
 </script>
 
 <template>
@@ -30,18 +43,20 @@ function goHome() {
           <v-tooltip activator="parent" location="left">Favoritos</v-tooltip>
         </v-btn>
         <template v-if="true">
-          <v-btn color="rgb(195,0,0)" variant="flat">Iniciar sesión</v-btn>
-        <v-btn color="rgb(195,0,0)" variant="text">Registrarse</v-btn>
+          <v-btn color="rgb(195,0,0)" variant="flat" @click="login">Iniciar sesión</v-btn>
+          <v-btn color="rgb(195,0,0)" variant="text" @click="singin">Registrarse</v-btn>
         </template>
         <template v-else="true">
           <v-btn icon>
             <v-icon color="rgb(195,0,0)">mdi-account</v-icon>
             <v-tooltip activator="parent" location="right">Mi perfil</v-tooltip>
           </v-btn>
-        </template>        
+        </template>
       </div>
     </v-container>
   </v-app-bar>
+  <Login ref="loginDialog"></Login>
+  <Singin ref="singinDialog"></Singin>
 </template>
 
 <style scoped>

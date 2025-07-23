@@ -21,28 +21,29 @@ const listCategorias = computed(() => {
   return aux
 })
 
-const currectCategoria = ref<string>()
-const currectPosicion = ref<string>()
-const currectGrupo = ref<number>()
-const currectTeam = ref<string>()
+const currentNombre = ref<string>()
+const currentCategoria = ref<string>()
+const currentPosicion = ref<string>()
+const currentGrupo = ref<number>()
+const currentTeam = ref<string>()
 const conGrupo = computed(() => {
-  return currectCategoria.value ? currectCategoria.value.includes('RFEF') : false
+  return currentCategoria.value ? currentCategoria.value.includes('RFEF') : false
 })
 
-watch(currectCategoria, async () => {
-  currectGrupo.value = undefined
-  currectTeam.value = undefined
+watch(currentCategoria, async () => {
+  currentGrupo.value = undefined
+  currentTeam.value = undefined
   await loadTeams()
 })
 
-watch(currectGrupo, async () => {
-  currectTeam.value = undefined
+watch(currentGrupo, async () => {
+  currentTeam.value = undefined
   await loadTeams()
 })
 
 const listGrupos = computed(() => {
   if (!conGrupo.value) return []
-  const tipo = currectCategoria.value!.split(' ')[0]
+  const tipo = currentCategoria.value!.split(' ')[0]
   return gruposPorCategoria[tipo] || []
 })
 
@@ -50,10 +51,10 @@ const listEquipos = ref<TeamSum[]>([])
 async function loadTeams() {
   let id
   if (!conGrupo.value) {
-    id = categorias.value.find((item) => item.nombre == currectCategoria.value)?.id
+    id = categorias.value.find((item) => item.nombre == currentCategoria.value)?.id
   } else {
     id = categorias.value.find(
-      (item) => item.nombre == currectCategoria.value && item.grupo == currectGrupo.value
+      (item) => item.nombre == currentCategoria.value && item.grupo == currentGrupo.value
     )?.id
   }
   if (id) {
@@ -61,6 +62,10 @@ async function loadTeams() {
   } else {
     listEquipos.value = []
   }
+}
+
+function buscar(){
+
 }
 </script>
 
@@ -76,7 +81,7 @@ async function loadTeams() {
         color="rgba(255, 255, 255, 0.7)"
         :elevation="24"
         height="400"
-        width="1200"
+        width="1400"
         class="d-flex flex-column justify-center align-center text-center"
         style="color: rgb(5, 0, 40)"
       >
@@ -88,11 +93,11 @@ async function loadTeams() {
 
         <v-row justify="center" dense style="width: 95%">
           <v-col cols="12" :md="conGrupo ? 2 : 3">
-            <v-text-field label="Nombre" hide-details />
+            <v-text-field v-model="currentNombre" label="Nombre" hide-details />
           </v-col>
           <v-col cols="12" md="2">
             <v-select
-              v-model="currectCategoria"
+              v-model="currentCategoria"
               label="Categoría"
               clearable
               hide-details
@@ -102,7 +107,7 @@ async function loadTeams() {
           </v-col>
           <v-col v-if="conGrupo" cols="12" md="2">
             <v-select
-              v-model="currectGrupo"
+              v-model="currentGrupo"
               clearable
               label="Grupo"
               hide-details
@@ -111,21 +116,22 @@ async function loadTeams() {
           </v-col>
           <v-col cols="12" :md="conGrupo ? 2 : 3">
             <v-select
-              :disabled="conGrupo ? !(currectCategoria && currectGrupo) : !currectCategoria"
-              v-model="currectTeam"
+              :disabled="conGrupo ? !(currentCategoria && currentGrupo) : !currentCategoria"
+              v-model="currentTeam"
               label="Equipo"
+              clearable
               hide-details
               :items="listEquipos"
               item-title="nombre"
             />
           </v-col>
-          <v-col cols="12" :md="conGrupo ? 2 : 3">
+          <v-col cols="12" md="3">
             <v-select
               label="Posición"
               hide-details
               :items="posicionesFutbol"
               clearable
-              v-model="currectPosicion"
+              v-model="currentPosicion"
             />
           </v-col>
           <v-col cols="12" md="1">
@@ -134,6 +140,7 @@ async function loadTeams() {
               class="text-white"
               style="height: 56px; width: 56px"
               icon="mdi mdi-magnify"
+              @click="buscar"
             ></v-btn>
           </v-col>
         </v-row>
