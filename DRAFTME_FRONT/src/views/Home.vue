@@ -7,18 +7,10 @@ import { storeToRefs } from 'pinia'
 
 const { loadCategorias, getCategoriaById } = useCategoria()
 const CategoriaStore = useCategoriaStore()
-const { categorias } = storeToRefs(CategoriaStore)
+const { categorias, listCategorias } = storeToRefs(CategoriaStore)
 
 onBeforeMount(async () => {
   loadCategorias(true)
-})
-
-const listCategorias = computed(() => {
-  const aux: string[] = []
-  categorias.value.forEach((item) => {
-    if (!aux.includes(item.nombre)) aux.push(item.nombre)
-  })
-  return aux
 })
 
 const currentNombre = ref<string>()

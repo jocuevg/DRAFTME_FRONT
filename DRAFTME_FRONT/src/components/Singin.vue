@@ -29,10 +29,10 @@ function registrar() {
   }
   show.value = false
   if (rol.value == Rol.player) {
-    playerDialog.value?.showDialog()
+    playerDialog.value?.showDialog(username.value!,contraseña.value!)
     return
   }
-  scouterDialog.value?.showDialog()
+  scouterDialog.value?.showDialog(username.value!,contraseña.value!)
 }
 
 const playerDialog = useTemplateRef('playerDialog')

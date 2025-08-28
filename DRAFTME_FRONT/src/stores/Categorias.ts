@@ -5,6 +5,14 @@ import type { Categoria } from '@/models/Categoria'
 export const useCategoriaStore = defineStore('Categoria', () => {
   const categorias = ref<Categoria[]>([])
 
+  const listCategorias = computed(() => {
+    const aux: string[] = []
+    categorias.value.forEach((item) => {
+      if (!aux.includes(item.nombre)) aux.push(item.nombre)
+    })
+    return aux
+  })
+
   function get(id: number): Categoria {
     return categorias.value.find((item) => item.id == id)!
   }
@@ -20,5 +28,5 @@ export const useCategoriaStore = defineStore('Categoria', () => {
     )
   }
 
-  return { categorias, quitar, load, get }
+  return { categorias, listCategorias, quitar, load, get }
 })
