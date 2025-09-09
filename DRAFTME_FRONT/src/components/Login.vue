@@ -1,4 +1,6 @@
 <script setup lang="ts">
+const { login } = useUser()
+
 const show = ref(false)
 const username = ref<string>()
 const contraseña = ref<string>()
@@ -12,7 +14,14 @@ function showDialog() {
   show.value = true
 }
 
-function iniciar() {}
+async function iniciar() {
+  var res = await login(username.value!,contraseña.value!)
+  if (res) {
+    validationError.value = res
+    return
+  }
+  show.value = false
+}
 
 defineExpose({
   showDialog

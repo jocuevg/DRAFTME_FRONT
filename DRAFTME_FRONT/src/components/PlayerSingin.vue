@@ -1,10 +1,13 @@
 <script setup lang="ts">
+import { Rol } from '@/enums/Rol'
 import { gruposPorCategoria } from '@/helpers/gruposPorCategoria'
+import { hashPassword } from '@/helpers/hasher'
 import { posicionesFutbol } from '@/helpers/posicionesFutbol'
 import type { TeamSum } from '@/models/Team'
 import { useCategoriaStore } from '@/stores/Categorias'
 import { storeToRefs } from 'pinia'
 
+const { singin } = useUser()
 const { getCategoriaById } = useCategoria()
 const CategoriaStore = useCategoriaStore()
 const { categorias, listCategorias } = storeToRefs(CategoriaStore)
@@ -31,9 +34,9 @@ const completo = computed(
     !!nacimiento.value &&
     !!posicion.value &&
     !!biblio.value &&
-    !!goles.value &&
-    !!asistencias.value &&
-    !!minutos.value
+    goles.value != null &&
+  asistencias.value != null &&
+  minutos.value != null
 )
 
 function showDialog(user: string, pass: string) {
@@ -92,7 +95,14 @@ async function loadTeams() {
   }
 }
 
-function registrar() {}
+async function registrar() {
+  var res = await singin({username: username.value!,passwordHash: await hashPassword(password.value!),rol: Rol.player})
+  if (res) {
+    validationError.value = res
+    return
+  }
+  show.value = false
+}
 
 defineExpose({
   showDialog
@@ -184,7 +194,7 @@ defineExpose({
             <v-textarea label="Bibliografía" v-model="biblio" />
           </v-col>
           <v-col cols="12" md="6">
-            <v-text-field v-model="username" label="Usuario"></v-text-field>
+            <v-text-field v-model="username" label="Usuario" readonly></v-text-field>
           </v-col>
           <v-col cols="12" md="6">
             <v-file-input

@@ -1,6 +1,11 @@
 <script setup lang="ts">
 import router from '@/router'
 import Singin from './Singin.vue';
+import { useUserStore } from '@/stores/Users';
+import { storeToRefs } from 'pinia';
+
+const UserStore = useUserStore()
+const { currentUser } = storeToRefs(UserStore)
 
 function goHome() {
   router.push({
@@ -42,15 +47,15 @@ function singin() {
           <v-icon color="rgb(195,0,0)">mdi-heart-outline</v-icon>
           <v-tooltip activator="parent" location="left">Favoritos</v-tooltip>
         </v-btn>
-        <template v-if="true">
-          <v-btn color="rgb(195,0,0)" variant="flat" @click="login">Iniciar sesión</v-btn>
-          <v-btn color="rgb(195,0,0)" variant="text" @click="singin">Registrarse</v-btn>
-        </template>
-        <template v-else="true">
-          <v-btn icon>
+        <template v-if="currentUser">
+          <v-btn icon @click="UserStore.logout()">
             <v-icon color="rgb(195,0,0)">mdi-account</v-icon>
             <v-tooltip activator="parent" location="right">Mi perfil</v-tooltip>
           </v-btn>
+        </template>
+        <template v-else="currentUser">
+          <v-btn color="rgb(195,0,0)" variant="flat" @click="login">Iniciar sesión</v-btn>
+          <v-btn color="rgb(195,0,0)" variant="text" @click="singin">Registrarse</v-btn>
         </template>
       </div>
     </v-container>

@@ -1,3 +1,4 @@
+import type { TeamSum } from "./Team"
 import type { User } from "./User"
 
 export interface Scouter {
@@ -8,4 +9,6 @@ export interface Scouter {
   bibliografia: string
   userId: string
   user: User
+  teamId?: string
+  team?: TeamSum
 }

@@ -23,8 +23,8 @@ export interface Player {
   nacimiento: Date
   posicion: string
   bibliografia: string
-  userId?: string
-  user?: User
+  userId: string
+  user: User
   teamId?: number
   team?: TeamSum
   goles: number

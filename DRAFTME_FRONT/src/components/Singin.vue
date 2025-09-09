@@ -3,6 +3,8 @@ import { Rol } from '@/enums/Rol'
 import PlayerSingin from './PlayerSingin.vue'
 import ScouterSingin from './ScouterSingin.vue'
 
+const { exists } = useUser()
+
 const show = ref(false)
 const username = ref<string>()
 const contraseña = ref<string>()
@@ -22,7 +24,12 @@ function showDialog() {
   show.value = true
 }
 
-function registrar() {
+async function registrar() {
+  var res = await exists(username.value!)
+  if (res) {
+    validationError.value = 'Nombre de usuario ocupado'
+    return
+  }
   if (contraseña.value != repcontraseña.value) {
     validationError.value = 'Las contraseñas no coinciden'
     return

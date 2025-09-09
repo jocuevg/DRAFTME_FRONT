@@ -1,5 +1,6 @@
 import type { Categoria } from "./Categoria"
 import type { HistoricoTeam } from "./HistoricoTeam"
+import type { Oferta } from "./Oferta"
 import type { PlayerSum } from "./Player"
 
 export interface TeamSum {
@@ -22,6 +23,6 @@ export interface Team {
   clasificacion: number
   puntos: number
   historico: HistoricoTeam[]
-  plantilla: PlayerSum[]
+  ofertas: Oferta[]
   escudo?: string
 }
