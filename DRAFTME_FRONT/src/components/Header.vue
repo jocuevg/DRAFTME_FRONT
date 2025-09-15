@@ -9,7 +9,7 @@ const { currentUser } = storeToRefs(UserStore)
 
 function goHome() {
   router.push({
-    name: 'home'
+    path: '/'
   })
 }
 

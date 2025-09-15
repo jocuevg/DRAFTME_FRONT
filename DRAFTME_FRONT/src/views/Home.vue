@@ -62,9 +62,6 @@ function buscar(){
 </script>
 
 <template>
-  <v-app>
-    <!-- HEADER -->
-    <Header></Header>
 
     <!-- HERO -->
     <div class="hero-section">
@@ -187,9 +184,6 @@ function buscar(){
       </v-row>
     </v-container>
 
-    <!-- FOOTER -->
-    <Footer></Footer>
-  </v-app>
 </template>
 
 <style scoped>
