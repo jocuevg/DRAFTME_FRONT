@@ -96,7 +96,7 @@ async function loadTeams() {
 }
 
 async function registrar() {
-  var res = await singin({username: username.value!,passwordHash: await hashPassword(password.value!),rol: Rol.player})
+  const res = await singin({username: username.value!,passwordHash: await hashPassword(password.value!),rol: Rol.player})
   if (res) {
     validationError.value = res
     return

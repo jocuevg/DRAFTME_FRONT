@@ -53,7 +53,7 @@ function singin() {
             <v-tooltip activator="parent" location="right">Mi perfil</v-tooltip>
           </v-btn>
         </template>
-        <template v-else="currentUser">
+        <template v-else>
           <v-btn color="rgb(195,0,0)" variant="flat" @click="login">Iniciar sesión</v-btn>
           <v-btn color="rgb(195,0,0)" variant="text" @click="singin">Registrarse</v-btn>
         </template>

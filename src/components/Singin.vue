@@ -25,7 +25,7 @@ function showDialog() {
 }
 
 async function registrar() {
-  var res = await exists(username.value!)
+  const res = await exists(username.value!)
   if (res) {
     validationError.value = 'Nombre de usuario ocupado'
     return

@@ -1,7 +1,6 @@
 import type { Categoria } from "./Categoria"
 import type { HistoricoTeam } from "./HistoricoTeam"
 import type { Oferta } from "./Oferta"
-import type { PlayerSum } from "./Player"
 
 export interface TeamSum {
   id: number

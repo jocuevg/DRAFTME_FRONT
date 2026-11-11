@@ -15,7 +15,7 @@ function showDialog() {
 }
 
 async function iniciar() {
-  var res = await login(username.value!,contraseña.value!)
+  const res = await login(username.value!,contraseña.value!)
   if (res) {
     validationError.value = res
     return

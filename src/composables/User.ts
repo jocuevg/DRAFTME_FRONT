@@ -10,10 +10,10 @@ export const useUser = () => {
     let exist: boolean = false
     await instance
       .get<User>(`User/${username}`)
-      .then((response) => {
-        exist=true
+      .then(() => {
+        exist = true
       })
-      .catch((error) => {
+      .catch(() => {
         exist = false
       })
     return exist
@@ -31,7 +31,7 @@ export const useUser = () => {
         UserStore.login(response.data)
         return undefined
       })
-      .catch((error) => {
+      .catch(() => {
           errors = 'Credenciales incorrectas'
       })
     return errors

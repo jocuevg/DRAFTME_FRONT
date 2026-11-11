@@ -1,11 +1,11 @@
 const isoDateFormat = /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d{1,7})?(?:[-+]\d{2}:?\d{2}|Z)?$/
 
-function isDateString(value: any): boolean {
-  return value && typeof value === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(value)
+function isDateString(value: unknown): value is string {
+  return typeof value === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(value)
 }
 
-function isIsoDateString(value: any): boolean {
-  return value && typeof value === 'string' && isoDateFormat.test(value)
+function isIsoDateString(value: unknown): value is string {
+  return typeof value === 'string' && isoDateFormat.test(value)
 }
 
 function getYear(isoDate: string): number {
@@ -42,13 +42,14 @@ function getMilliseconds(isoDate: string): number {
   return +msStr
 }
 
-export function parseJsonResponse(body: any) {
+export function parseJsonResponse(body: unknown) {
   if (body === null || body === undefined || typeof body !== 'object') return body
 
-  for (const key of Object.keys(body)) {
-    const value = body[key]
+  const record = body as Record<string, unknown>
+  for (const key of Object.keys(record)) {
+    const value = record[key]
     if (isIsoDateString(value)) {
-      body[key] = new Date(
+      record[key] = new Date(
         getYear(value),
         getMonthIndex(value),
         getDate(value),
@@ -58,9 +59,9 @@ export function parseJsonResponse(body: any) {
         getMilliseconds(value)
       )
     } else if (isDateString(value)) {
-      body[key] = new Date(getYear(value), getMonthIndex(value), getDate(value))
+      record[key] = new Date(getYear(value), getMonthIndex(value), getDate(value))
     } else if (value === null) {
-      body[key] = undefined
+      record[key] = undefined
     } else if (typeof value === 'object') {
       parseJsonResponse(value)
     }
